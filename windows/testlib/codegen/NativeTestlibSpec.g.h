@@ -36,7 +36,6 @@ struct TestlibSpec : winrt::Microsoft::ReactNative::TurboModuleSpec {
       Method<void(std::string, std::string, Promise<bool>) noexcept>{8, L"writeToFile"},
       Method<void(std::string, std::string, Promise<void>) noexcept>{9, L"showAlert"},
       Method<void(std::string, std::string, Promise<bool>) noexcept>{10, L"showConfirm"},
-      Method<void(Promise<std::string>) noexcept>{11, L"showDatePicker"},
   };
 
   template <class TModule>
@@ -98,11 +97,6 @@ struct TestlibSpec : winrt::Microsoft::ReactNative::TurboModuleSpec {
           "showConfirm",
           "    REACT_METHOD(showConfirm) void showConfirm(std::string title, std::string message, ::React::ReactPromise<bool> &&result) noexcept { /* implementation */ }\n"
           "    REACT_METHOD(showConfirm) static void showConfirm(std::string title, std::string message, ::React::ReactPromise<bool> &&result) noexcept { /* implementation */ }\n");
-    REACT_SHOW_METHOD_SPEC_ERRORS(
-          11,
-          "showDatePicker",
-          "    REACT_METHOD(showDatePicker) void showDatePicker(::React::ReactPromise<std::string> &&result) noexcept { /* implementation */ }\n"
-          "    REACT_METHOD(showDatePicker) static void showDatePicker(::React::ReactPromise<std::string> &&result) noexcept { /* implementation */ }\n");
   }
 };
 

@@ -43,7 +43,3 @@ export function showAlert(title: string, message: string): Promise<void> {
 export function showConfirm(title: string, message: string): Promise<boolean> {
   return Testlib.showConfirm(title, message);
 }
-
-export function showDatePicker(): Promise<string> {
-  return Testlib.showDatePicker();
-}

@@ -66,9 +66,6 @@ struct Testlib
   REACT_METHOD(showAlert)
     void showAlert(std::string title, std::string message, React::ReactPromise<void>&& result) noexcept;
 
-  REACT_METHOD(showDatePicker)
-    void showDatePicker(React::ReactPromise<std::string>&& result) noexcept;
-
 
   private:
     React::ReactContext m_context;

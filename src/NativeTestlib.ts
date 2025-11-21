@@ -13,7 +13,6 @@ export interface Spec extends TurboModule {
   writeToFile(filename: string, filecontent: string): Promise<boolean>
   showAlert(title: string, message: string): Promise<void>
   showConfirm(title: string, message: string): Promise<boolean>
-  showDatePicker(): Promise<string>
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('Testlib');

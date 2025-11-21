@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
-import { getComputerName, getOSVersion, setToClipBoard, setGenericPassword, getGenericPassword, resetGenericPassword, getBatteryLife, writeToFile, showAlert, showConfirm, showDatePicker } from 'testlib';
+import { getComputerName, getOSVersion, setToClipBoard, setGenericPassword, getGenericPassword, resetGenericPassword, getBatteryLife, writeToFile, showAlert, showConfirm } from 'testlib';
 
 const result = getComputerName();
 const OSVersion = getOSVersion()
@@ -19,10 +19,6 @@ export default function App() {
     } else {
       setWriteToFileResult("false")
     }
-  }
-
-  const handleShowDatePicker = () => {
-    showDatePicker()
   }
 
   const handleShowAlert = async () => {
@@ -69,7 +65,6 @@ export default function App() {
       <Button title="Show Alert" onPress={() => handleShowAlert()} />
       <Button title="Show Confirm" onPress={() => handleShowConfirm()} />
       <Text>Confirm Result : {alertResult}</Text>
-      <Button title="Show DatePicker" onPress={() => handleShowDatePicker()} />
     </View>
   );
 }

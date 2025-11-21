@@ -22,47 +22,6 @@ using namespace Windows::Globalization;
 std::wstring StringToWideString(const std::string& str);
 std::string WideStringToString(const std::wstring& wstr);
 
-bool DateTimePicker_Show(HWND parent, SYSTEMTIME* st, const wchar_t* title) {
-  INITCOMMONCONTROLSEX icex{ sizeof(icex), ICC_DATE_CLASSES };
-  InitCommonControlsEx(&icex);
-
-  HWND hWnd = CreateWindowEx(
-    WS_EX_TOOLWINDOW,
-    DATETIMEPICK_CLASS,
-    L"",
-    WS_POPUP | WS_BORDER | WS_SYSMENU | WS_CAPTION,
-    CW_USEDEFAULT, CW_USEDEFAULT, 240, 60,
-    parent,
-    NULL,
-    GetModuleHandle(NULL),
-    NULL);
-
-  if (!hWnd) return false;
-
-  SetWindowText(hWnd, title);
-  SendMessage(hWnd, DTM_SETSYSTEMTIME, GDT_VALID, (LPARAM)st);
-
-  ShowWindow(hWnd, SW_SHOWNORMAL);
-  UpdateWindow(hWnd);
-
-  MSG msg{};
-  bool picked = false;
-  while (GetMessage(&msg, NULL, 0, 0)) {
-    if (msg.message == WM_COMMAND) {
-      picked = true;
-      break;
-    }
-    if (msg.message == WM_CLOSE) break;
-    TranslateMessage(&msg);
-    DispatchMessage(&msg);
-  }
-
-  SendMessage(hWnd, DTM_GETSYSTEMTIME, 0, (LPARAM)st);
-  DestroyWindow(hWnd);
-
-  return picked;
-}
-
 namespace winrt::testlib
 {
 
@@ -566,47 +525,6 @@ void Testlib::showConfirm(std::string title, std::string message, React::ReactPr
   }
   catch (...) {
     result.Reject("Failed to show dialog");
-  }
-}
-
-void Testlib::showDatePicker(
-  React::ReactPromise<std::string>&& result) noexcept
-{
-  try {
-    auto ui = m_context.UIDispatcher();
-    ui.Post([result = std::move(result)]() mutable {
-      try {
-        DatePickerFlyout flyout;
-        bool picked = false;
-
-        flyout.DatePicked([&result, &picked](auto const& sender, auto const&) mutable {
-          picked = true;
-          Calendar calendar;
-          calendar.SetDateTime(sender.Date());
-          auto y = calendar.Year();
-          auto m = calendar.Month();
-          auto d = calendar.Day();
-
-          char buffer[20];
-          sprintf_s(buffer, "%04d-%02d-%02d", y, m, d);
-          result.Resolve(buffer);
-          });
-
-        flyout.Closed([&result, &picked](auto const&, auto const&) mutable {
-          if (!picked) {
-            result.Reject("cancelled");
-          }
-          });
-
-        flyout.ShowAt(nullptr);
-      }
-      catch (...) {
-        result.Reject("flyout error");
-      }
-      });
-  }
-  catch (...) {
-    result.Reject("dispatcher error");
   }
 }
 
