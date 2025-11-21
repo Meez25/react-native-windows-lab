@@ -35,7 +35,8 @@
     "!**/__tests__",
     "!**/__fixtures__",
     "!**/__mocks__",
-    "!**/.*"
+    "!**/.*",
+    "windows"
   ],
   "scripts": {
     "example": "yarn workspace testlib-example",
@@ -82,13 +83,15 @@
     "react": "19.1.0",
     "react-native": "0.80.0",
     "react-native-builder-bob": "^0.38.3",
+    "react-native-windows": "0.80.0",
     "release-it": "^17.10.0",
     "turbo": "^1.10.7",
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-windows": "*"
   },
   "workspaces": [
     "example"
@@ -192,11 +195,23 @@
     "android": {
       "javaPackageName": "com.testlib"
     },
-    "includesGeneratedCode": true
+    "includesGeneratedCode": true,
+    "windows": {
+      "namespace": "testlibCodegen",
+      "outputDirectory": "windows/testlib/codegen",
+      "separateDataTypes": true
+    }
   },
   "create-react-native-library": {
     "type": "turbo-module",
     "languages": "cpp",
     "version": "0.48.9"
+  },
+  "react-native-windows": {
+    "init-windows": {
+      "name": "testlib",
+      "namespace": "testlib",
+      "template": "cpp-lib"
+    }
   }
 }
