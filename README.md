@@ -56,31 +56,30 @@ When adding or modifying native functionality, you'll primarily work with these 
 
 To test the module during development:
 
-1. Navigate to the example app directory:
+1. **Start the Metro bundler**: Navigate to the example app directory and start the bundler:
    ```bat
    cd example
+   yarn start
    ```
 
-2. Run the Windows example app:
-   ```bat
-   yarn react-native run-windows
-   ```
+2. **Run from Visual Studio**: Open `example/windows/<ExampleAppName>.sln` in Visual Studio and run the project directly from there using the **Play** button or **F5**
 
-   Or from the library root:
-   ```bat
-   yarn example react-native run-windows
-   ```
+**Tip**: This workflow allows you to debug both JavaScript (via Metro) and native C++ code (via Visual Studio) simultaneously.
 
 ## Visual Studio Usage
 
-When modifying the native Windows code, you can open the Visual Studio solution for a better development experience:
+When modifying the native Windows code:
 
-1. Navigate to `windows/testlib.sln` and open it in Visual Studio
-2. Make changes to the `.h` and `.cpp` files
-3. Build the solution in Visual Studio to check for compilation errors
-4. The changes will be reflected when you run the example app
+1. **Open the library solution**: Navigate to `windows/testlib.sln` and open it in Visual Studio to edit the native module code
+2. **Make changes**: Edit the `.h` and `.cpp` files in the `windows/testlib/` directory
+3. **Test in the example app**: Open `example/windows/<ExampleAppName>.sln` in Visual Studio to run and debug the example app with your changes
+4. **Build and run**: Press F5 or click the Play button to build and launch the app
 
-**Tip**: Visual Studio provides IntelliSense, debugging capabilities, and easier navigation through the C++ codebase.
+**Visual Studio provides**:
+- IntelliSense for code completion
+- Breakpoint debugging for C++ code
+- Easy navigation through the codebase
+- Immediate feedback on compilation errors
 
 ## Development Workflow
 
@@ -88,7 +87,9 @@ When modifying the native Windows code, you can open the Visual Studio solution 
 2. **Declare in C++**: Add corresponding declarations in `windows/testlib/testlib.h`
 3. **Implement in C++**: Write the native implementation in `windows/testlib/testlib.cpp`
 4. **Export the API**: Export your functions in `src/index.tsx`
-5. **Test**: Run the example app to verify functionality
+5. **Test**:
+   - Run `yarn start` in the `example/` folder
+   - Open and run the project from `example/windows/` in Visual Studio
 
 ## Repository Structure
 
@@ -101,8 +102,9 @@ testlib/
 │   └── testlib/
 │       ├── testlib.h        # C++ header file
 │       ├── testlib.cpp      # C++ implementation
-│       └── testlib.sln      # Visual Studio solution
+│       └── testlib.sln      # Visual Studio solution (library)
 ├── example/                  # Example app for testing
+│   └── windows/             # Visual Studio solution (example app)
 └── android/, ios/           # Other platform implementations
 ```
 
